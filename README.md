@@ -1,5 +1,5 @@
-## SHOPIFY-APP to use for Work 
+## SHOPIFY-APP Sample for Learning
 
 ### Work in progress...
 
-### Custom Cross sell application to sell other products. I didn't like shopify's Cross sell Apps so I am making my own
+### Just to try out Polaris on shopify
