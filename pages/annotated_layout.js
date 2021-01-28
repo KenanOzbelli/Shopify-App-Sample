@@ -1,5 +1,6 @@
 import React from 'react';
 import {Page, Layout, Card, Banner, Button, Form, FormLayout, TextField, Stack, SettingToggle, TextStyle} from '@shopify/polaris';
+import { TitleBar } from '@shopify/app-bridge-react';
 
 class AnnotatedLayout extends React.Component {
     state = {
@@ -29,6 +30,7 @@ class AnnotatedLayout extends React.Component {
        const textStatus = enabled ? 'Enabled' : 'Disabeld';
         return (
             <Page>
+                <TitleBar title='Annotated Layout'/>
                 <Layout>
                     <Layout.Section>
                         <Banner onDismiss={

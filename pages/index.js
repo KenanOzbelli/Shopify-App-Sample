@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Page,
     MediaCard,
@@ -10,11 +10,34 @@ import {
     Stack,
     ButtonGroup
 } from '@shopify/polaris';
+import { TitleBar, ResourcePicker } from '@shopify/app-bridge-react';
 
 const Index = () => {
+   const [open, setOpen] = useState(false);
+   const [Items, setItems] = useState([]);
+   const handleSelection = (resource) => {
+        setOpen(false);
+        setItems(oldResouce => [...oldResouce, resource])
+        console.log(resource.selection);
+        console.log(Items);
+   }
 
     return (
-        <Page title='Menu Item' subtitle='Secondary Menu Item' separator>
+        <Page title='Cross-Sell' subtitle='Set Products' separator>
+            <TitleBar
+                title='Sample App'
+                primaryAction={{
+                    content:'Select Products',
+                    onAction: ()=> {setOpen(true)}
+                }}
+            />
+            <ResourcePicker
+                resourceType="Product"
+                showVariants={false}
+                open={open}
+                onSelection={(resource) => {handleSelection(resource)}}
+                onCancel={()=> setOpen(false)}
+            />
             <Card sectioned>
                 <Stack spacing='loose' vertical>
                     <Layout>
@@ -25,74 +48,10 @@ const Index = () => {
                             }
                         }>A work in progress</Banner>
                     </Layout.Section>
-                    <Layout.Section oneThird>
-                                <MediaCard portrait title='Test-App' description="Testing The Design of Polaris"
-                                    primaryAction={
-                                        {
-                                            content: "Add a Product",
-                                            onAction: () => {
-                                                console.log('Product Added')
-                                            }
-                                        }
-                                    }>
-                                    <img alt='Mountains' width='100%'
-                                        style={
-                                            {
-                                                objectFit: 'cover',
-                                                objectPosition: 'center'
-                                            }
-                                        }
-                                        src="https://burst.shopifycdn.com/photos/icy-summit-of-a-mountain-on-a-frosty-night.jpg?width=925&format=pjpg&exif=1&iptc=1 1x, https://burst.shopifycdn.com/photos/icy-summit-of-a-mountain-on-a-frosty-night.jpg?width=1850&format=pjpg&exif=1&iptc=1 2x"/>
-                                </MediaCard>
-                    </Layout.Section>
-                    <Layout.Section oneThird>
-                                <MediaCard portrait title='Test-App' description="Testing The Design of Polaris"
-                                    primaryAction={
-                                        {
-                                            content: "Add a Product",
-                                            onAction: () => {
-                                                console.log('Product Added')
-                                            }
-                                        }
-                                    }>
-                                    <img alt='Mountains' width='100%'
-                                        style={
-                                            {
-                                                objectFit: 'cover',
-                                                objectPosition: 'center'
-                                            }
-                                        }
-                                        src="https://burst.shopifycdn.com/photos/icy-summit-of-a-mountain-on-a-frosty-night.jpg?width=925&format=pjpg&exif=1&iptc=1 1x, https://burst.shopifycdn.com/photos/icy-summit-of-a-mountain-on-a-frosty-night.jpg?width=1850&format=pjpg&exif=1&iptc=1 2x"/>
-                                </MediaCard>
-                    </Layout.Section>
-                    <Layout.Section oneThird>
-                                <MediaCard portrait title='Test-App' description="Testing The Design of Polaris"
-                                    primaryAction={
-                                        {
-                                            content: "Add a Product",
-                                            onAction: () => {
-                                                console.log('Product Added')
-                                            }
-                                        }
-                                    }>
-                                    <img alt='Mountains' width='100%'
-                                        style={
-                                            {
-                                                objectFit: 'cover',
-                                                objectPosition: 'center'
-                                            }
-                                        }
-                                        src="https://burst.shopifycdn.com/photos/icy-summit-of-a-mountain-on-a-frosty-night.jpg?width=925&format=pjpg&exif=1&iptc=1 1x, https://burst.shopifycdn.com/photos/icy-summit-of-a-mountain-on-a-frosty-night.jpg?width=1850&format=pjpg&exif=1&iptc=1 2x"/>
-                                </MediaCard>
-                    </Layout.Section>
+                    
                 </Layout>
                     <Stack distribution='trailing'>
-                        <ButtonGroup>
-                            <Button primary={true}>Add a Product</Button>
-                            <span style={{color:'red'}}>
-                                <Button outline={true} monochrome>Delete a Product</Button>
-                            </span> 
-                        </ButtonGroup>
+                            <Button primary={true} onClick={() =>{setOpen(true)}}>Select Products</Button>
                     </Stack>
                 </Stack>
             </Card>
