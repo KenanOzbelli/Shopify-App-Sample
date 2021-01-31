@@ -11,17 +11,15 @@ import {
     ButtonGroup
 } from '@shopify/polaris';
 import { TitleBar, ResourcePicker } from '@shopify/app-bridge-react';
-
 const Index = () => {
    const [open, setOpen] = useState(false);
    const [Items, setItems] = useState([]);
    const handleSelection = (resource) => {
         setOpen(false);
-        setItems(oldResouce => [...oldResouce, resource])
-        console.log(resource.selection);
-        console.log(Items);
-   }
-
+        resource.selection.map(item => {
+            Items.findIndex(oldItem => oldItem.id === item.id) == -1 ? setItems(oldArray => [...oldArray, item]) : console.log("Can't add");
+        });
+   }   
     return (
         <Page title='Cross-Sell' subtitle='Set Products' separator>
             <TitleBar
@@ -48,7 +46,17 @@ const Index = () => {
                             }
                         }>A work in progress</Banner>
                     </Layout.Section>
-                    
+                    <Layout.Section>
+                    {Items.map(Product => {
+                        return(
+                            <>
+                             <Card>
+                                 <p>{Product.handle}</p>
+                             </Card>
+                            </>
+                        )
+                    })}
+                    </Layout.Section>
                 </Layout>
                     <Stack distribution='trailing'>
                             <Button primary={true} onClick={() =>{setOpen(true)}}>Select Products</Button>
