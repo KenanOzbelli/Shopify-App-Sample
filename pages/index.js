@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
 import {
     Page,
-    MediaCard,
     Layout,
-    Card,
     Banner,
     Button,
+    Card,
     SkeletonBodyText,
     Stack,
     ButtonGroup
 } from '@shopify/polaris';
 import { TitleBar, ResourcePicker } from '@shopify/app-bridge-react';
+import ProductCard from '../components/ProductCard';
 const Index = () => {
    const [open, setOpen] = useState(false);
    const [Items, setItems] = useState([]);
    const handleSelection = (resource) => {
         setOpen(false);
         resource.selection.map(item => {
-            Items.findIndex(oldItem => oldItem.id === item.id) == -1 ? setItems(oldArray => [...oldArray, item]) : console.log("Can't add");
+            Items.findIndex(oldItem => oldItem.id === item.id) == -1 ? setItems(oldArray => [...oldArray, item]) : null;
+            console.log(item);
         });
    }   
+   const handleRemove = (id) => {
+        console.log(`${id} needs to be Dismissed`)
+   }
     return (
         <Page title='Cross-Sell' subtitle='Set Products' separator>
             <TitleBar
@@ -33,6 +37,7 @@ const Index = () => {
                 resourceType="Product"
                 showVariants={false}
                 open={open}
+                initialSelectionIds={Items.filter(item => {return item.id})}
                 onSelection={(resource) => {handleSelection(resource)}}
                 onCancel={()=> setOpen(false)}
             />
@@ -46,17 +51,13 @@ const Index = () => {
                             }
                         }>A work in progress</Banner>
                     </Layout.Section>
-                    <Layout.Section>
                     {Items.map(Product => {
                         return(
-                            <>
-                             <Card>
-                                 <p>{Product.handle}</p>
-                             </Card>
-                            </>
+                        <Layout.Section oneThird>
+                            <ProductCard item={Product} dismiss={handleRemove}/>
+                        </Layout.Section>
                         )
                     })}
-                    </Layout.Section>
                 </Layout>
                     <Stack distribution='trailing'>
                             <Button primary={true} onClick={() =>{setOpen(true)}}>Select Products</Button>
