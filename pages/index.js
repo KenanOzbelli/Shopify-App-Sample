@@ -11,14 +11,14 @@ import {
 } from '@shopify/polaris';
 import { TitleBar, ResourcePicker } from '@shopify/app-bridge-react';
 import ProductCard from '../components/ProductCard';
-const Index = () => {
+const Index = (props) => {
    const [open, setOpen] = useState(false);
    const [Items, setItems] = useState([]);
+
    const handleSelection = (resource) => {
         setOpen(false);
         resource.selection.map(item => {
             Items.findIndex(oldItem => oldItem.id === item.id) == -1 ? setItems(oldArray => [...oldArray, item]) : null;
-            console.log(item);
         });
    }   
    const handleRemove = (id) => {
