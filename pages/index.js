@@ -39,26 +39,38 @@ class Index extends React.Component {
                 onAction: () => this.setState({open: true}),
             }}
             />
-            <ResourcePicker
-            resourceType="Product"
-            showVariants={false}
-            open={this.state.open}
-            initialSelectionIds={store.get('items').filter(item => {return item.id})}
-            onSelection={(resources) => this.handleSelection(resources)}
-            onCancel={() => this.setState({open: false})}
-            />
+            {store.get('items') != undefined ? (
+                <ResourcePicker
+                resourceType="Product"
+                showVariants={false}
+                open={this.state.open}
+                initialSelectionIds={store.get('items').filter(item => {return item.id})}
+                onSelection={(resources) => this.handleSelection(resources)}
+                onCancel={() => this.setState({open: false})}
+                />
+            ):(
+                <ResourcePicker
+                resourceType="Product"
+                showVariants={false}
+                open={this.state.open}
+                onSelection={(resources) => this.handleSelection(resources)}
+                onCancel={() => this.setState({open: false})}
+                />
+            )}   
             {emptyState ? (
             <Layout>
-            <EmptyState
-                heading="Select products to start"
-                action={{
-                content: 'Select products',
-                onAction: () => this.setState({open: true}),
-                }}
-                image={img}
-            >
-                <p>Select products and change their price temporarily</p>
-            </EmptyState>
+                <Stack>
+                    <EmptyState
+                        heading="Select products to start"
+                        action={{
+                        content: 'Select products',
+                        onAction: () => this.setState({open: true}),
+                        }}
+                        image={img}
+                    >
+                        <p>Select products and change their price temporarily</p>
+                    </EmptyState>
+                </Stack>
             </Layout>
             ):(
             <ResourceListWithProducts />
