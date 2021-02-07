@@ -61,13 +61,13 @@ app.prepare().then(() => {
     const webhook = receiveWebhook({secret: SHOPIFY_API_SECRET});
     const notificationWebhook = receiveWebhook({secret: NOTIFYWEBHOOK})
     router.post('/webhooks/products/create', webhook, (ctx) => {
-        console.log('recieved webhook: ', ctx.state.webhook);
+        console.log('Recieved webhook: ', ctx.state.webhook);
     });
     router.post('/webhooks/products/delete', webhook, (ctx) => {
-      console.log('recieved webhook:', ctx.state.webhook);
+      console.log('Recieved webhook:', ctx.state.webhook);
     });
     router.post('/webhooks/products/update', notificationWebhook, (ctx) => {
-          console.log('WE GOT IT BABY!', ctx.state.webhook.payload);
+          console.log('Recieved webhook', ctx.state.webhook.payload);
     });
     router.post('/webhooks/theme/update', notificationWebhook, (ctx) => {
         console.log('Recieved webhook:', ctx.state.webhook);
